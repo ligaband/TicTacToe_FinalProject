@@ -8,10 +8,7 @@ import javax.swing.*;
 //JPanel is a parent class and TicTacToe is a subclass.
 // This way it is possible to use JPanel methods for creating GUI
 
-
 public class TicTacToeGUI extends JPanel {
-
-
 
     char playerSymbol = 'X';
 
@@ -53,7 +50,6 @@ public class TicTacToeGUI extends JPanel {
                     }
                     showWinner();
 
-
                 }
             });
 //adds clicked button to JPanel
@@ -69,7 +65,6 @@ public class TicTacToeGUI extends JPanel {
             // switch the player symbols
             // because after we put X and we win, the games withes it to X
             // but x is the winner and X should be kept
-
 
             if(playerSymbol == 'X') playerSymbol = 'O';
             else playerSymbol ='X';
@@ -93,7 +88,6 @@ public class TicTacToeGUI extends JPanel {
     }
 
 
-
     public boolean checkDraw() {
         boolean full = true;
         for(int i = 0 ; i<9;i++) {
@@ -109,3 +103,45 @@ public class TicTacToeGUI extends JPanel {
         return (checkRows() == true || checkColumns() == true || checkDiagonals() == true);
     }
 
+   public boolean checkRows() {
+
+        int i = 0;
+        for(int j = 0;j<3;j++) {
+            if( buttons[i].getText().equals(buttons[i+1].getText()) && buttons[i].getText().equals(buttons[i+2].getText())
+                    && buttons[i].getText().charAt(0) != ' ') {
+                return true;
+            }
+            i = i+3;
+        }
+        return false;
+    }
+
+    public boolean checkColumns() {
+
+        int i = 0;
+        for(int j = 0;j<3;j++) {
+            if( buttons[i].getText().equals(buttons[i+3].getText()) && buttons[i].getText().equals(buttons[i+6].getText())
+                    && buttons[i].getText().charAt(0) != ' ')
+            {
+                return true;
+            }
+            i++;
+        } return false;
+    }
+    public boolean checkDiagonals() {
+        if(buttons[0].getText().equals(buttons[4].getText()) && buttons[0].getText().equals(buttons[8].getText())
+                && buttons[0].getText().charAt(0) !=' ')
+            return true;
+        else return (buttons[2].getText().equals(buttons[4].getText()) && buttons[2].getText().equals(buttons[6].getText())
+                && buttons[2].getText().charAt(0) !=' ');
+    }
+    //method for reset
+
+    private void resetGame() {
+        playerSymbol = 'X';
+        for(int i =0;i<9;i++) {
+            buttons[i].setText(" ");
+            buttons[i].setBackground(Color.white);
+        }
+    }
+}
