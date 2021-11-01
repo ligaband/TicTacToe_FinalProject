@@ -61,3 +61,51 @@ public class TicTacToeGUI extends JPanel {
         }
     }
 
+    // display the winner and the game stops when there is a winner
+    public void showWinner() {
+
+        if(checkWinner() == true) {
+
+            // switch the player symbols
+            // because after we put X and we win, the games withes it to X
+            // but x is the winner and X should be kept
+
+
+            if(playerSymbol == 'X') playerSymbol = 'O';
+            else playerSymbol ='X';
+
+            //create option pane
+
+            JOptionPane pane = new JOptionPane();
+            int dialogResult = JOptionPane.showConfirmDialog(pane, playerSymbol + " has won. Play again?","Game over!",
+                    JOptionPane.YES_NO_OPTION);
+
+            if(dialogResult == JOptionPane.YES_OPTION) resetGame();
+            else System.exit(0);
+        }
+
+        else if(checkDraw()) {
+            JOptionPane pane = new JOptionPane();
+            int dialogResult = JOptionPane.showConfirmDialog(pane, "It's a draw! Play again?","Game over!", JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION)  resetGame();
+            else System.exit(0);
+        }
+    }
+
+
+
+    public boolean checkDraw() {
+        boolean full = true;
+        for(int i = 0 ; i<9;i++) {
+            if(buttons[i].getText().charAt(0) == ' ') {
+                full = false;
+            }
+        }
+        return full;
+    }
+
+
+    public boolean checkWinner() {
+        return (checkRows() == true || checkColumns() == true || checkDiagonals() == true);
+    }
+
